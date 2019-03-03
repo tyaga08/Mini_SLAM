@@ -20,7 +20,7 @@ find_package(catkin REQUIRED COMPONENTS
 
 find_package(Boost REQUIRED COMPONENTS system)
 find_package(cartographer REQUIRED)
-
+find_package(PCL 1.3 REQUIRED COMPONENTS common io)
 
 ################################################
 ## Declare ROS messages, services and actions ##
@@ -123,7 +123,16 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
   ${Boost_INCLUDE_DIRS}
   ${cartographer_INCLUDE_DIRS}
+  ${PCL_INCLUDE_DIRS}
   ${PROJECT_SOURCE_DIR}/include/
+)
+
+link_directories(
+  ${PCL_LIBRARY_DIRS}
+)
+
+add_definitions(
+  ${PCL_DEFINITIONS}  
 )
 
 ## Declare a C++ library
@@ -155,7 +164,10 @@ add_executable(node1 src/node1.cpp)
 target_link_libraries(node1
   ${catkin_LIBRARIES}
   ${cartographer_LIBRARIES}
+  ${PCL_LIBRARIES}
 )
+
+
 
 #############
 ## Install ##
