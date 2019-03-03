@@ -18,29 +18,29 @@ public:
 		cloud.is_dense = true;
 		cloud.points.resize(cloud.height*cloud.width);
 
-		pcloud.height = 1;
-		pcloud.width = 1;
+		// pcloud.height = 1;
+		// pcloud.width = 1;
 
-		pcloud.point_step = 2; // considering uint8 for datatype
-		pcloud.row_step = pcloud.point_step* pcloud.width;
-		cout<<"here in constructor"<<endl;
-		// 
-		sensor_msgs::PointField field1, field2;
-		field1.name = "x";
-		field1.offset = 0;
-		field1.datatype = sensor_msgs::PointField::INT8;
-		field1.count = 1;
+		// pcloud.point_step = 2; // considering uint8 for datatype
+		// pcloud.row_step = pcloud.point_step* pcloud.width;
+		// cout<<"here in constructor"<<endl;
+		// // 
+		// sensor_msgs::PointField field1, field2;
+		// field1.name = "x";
+		// field1.offset = 0;
+		// field1.datatype = sensor_msgs::PointField::INT8;
+		// field1.count = 1;
 
-		field2.name = "y";
-		field2.offset = 0;
-		field2.datatype = sensor_msgs::PointField::INT8;
-		field2.count = 1;
+		// field2.name = "y";
+		// field2.offset = 0;
+		// field2.datatype = sensor_msgs::PointField::INT8;
+		// field2.count = 1;
 
-		pcloud.fields = {field1,field2};
+		// pcloud.fields = {field1,field2};
 
 		cout<<"here"<<endl;
 
-		pcloud.is_dense = true;
+		// pcloud.is_dense = true;
 		pc_publisher = nh.advertise<sensor_msgs::PointCloud2>("/cloud", 1);
 	}
 
@@ -75,4 +75,6 @@ void point_cloud::synthesize_point_cloud(vector<pair<int8_t,int8_t> > &occupied_
 		cloud.points[i].x = occupied_points.at(i).first;
 		cloud.points[i].y = occupied_points.at(i).second;
 	}
+
+	pcl::toROSMsg(cloud, pcloud);
 }
