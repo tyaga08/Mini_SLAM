@@ -18,26 +18,6 @@ public:
 		cloud.is_dense = true;
 		cloud.points.resize(cloud.height*cloud.width);
 
-		// pcloud.height = 1;
-		// pcloud.width = 1;
-
-		// pcloud.point_step = 2; // considering uint8 for datatype
-		// pcloud.row_step = pcloud.point_step* pcloud.width;
-		// cout<<"here in constructor"<<endl;
-		// // 
-		// sensor_msgs::PointField field1, field2;
-		// field1.name = "x";
-		// field1.offset = 0;
-		// field1.datatype = sensor_msgs::PointField::INT8;
-		// field1.count = 1;
-
-		// field2.name = "y";
-		// field2.offset = 0;
-		// field2.datatype = sensor_msgs::PointField::INT8;
-		// field2.count = 1;
-
-		// pcloud.fields = {field1,field2};
-
 		cout<<"here"<<endl;
 
 		// pcloud.is_dense = true;

@@ -11,16 +11,33 @@ ENDIF()
 
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
+find_package(Boost REQUIRED COMPONENTS system)
+
+find_package(PCL 1.3 REQUIRED COMPONENTS common io)
+find_package(Eigen3 REQUIRED)
+
+find_package(cartographer REQUIRED)
+include("${CARTOGRAPHER_CMAKE_DIR}/functions.cmake")
+google_initialize_cartographer_project()
+google_enable_testing()
+
+find_package(LuaGoogle REQUIRED)
+
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
   std_msgs
   nav_msgs
+  # cartographer_ros
 )
 
-find_package(Boost REQUIRED COMPONENTS system)
-find_package(cartographer REQUIRED)
-find_package(PCL 1.3 REQUIRED COMPONENTS common io)
+
+# Override Catkin's GTest configuration to use GMock.
+set(GTEST_FOUND TRUE)
+set(GTEST_INCLUDE_DIRS ${GMOCK_INCLUDE_DIRS})
+set(GTEST_LIBRARIES ${GMOCK_LIBRARIES})
+
+# find_package(cartographer REQUIRED)
 
 ################################################
 ## Declare ROS messages, services and actions ##
@@ -105,10 +122,9 @@ find_package(PCL 1.3 REQUIRED COMPONENTS common io)
 catkin_package(
   INCLUDE_DIRS include
   LIBRARIES Mini_SLAM
-  CATKIN_DEPENDS message_runtime roscpp rospy std_msgs nav_msgs
-  DEPENDS system_lib cartographer
+  CATKIN_DEPENDS message_runtime roscpp rospy std_msgs nav_msgs 
+  DEPENDS system_lib PCL Eigen cartographer
 )
-
 
 
 
@@ -122,9 +138,12 @@ include_directories(
   include
   ${catkin_INCLUDE_DIRS}
   ${Boost_INCLUDE_DIRS}
-  ${cartographer_INCLUDE_DIRS}
   ${PCL_INCLUDE_DIRS}
   ${PROJECT_SOURCE_DIR}/include/
+  ${LUA_INCLUDE_DIR}
+  #${find_package(cartographer)}/src/
+  # ${PROJECT_SOURCE_DIR}/../../../cartographer_ws/src/cartographer/
+  # ~/cartographer_ws/src/
 )
 
 link_directories(
@@ -134,6 +153,7 @@ link_directories(
 add_definitions(
   ${PCL_DEFINITIONS}  
 )
+
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
@@ -150,6 +170,7 @@ add_definitions(
 ## The recommended prefix ensures that target names across packages don't collide
 add_executable(node1 src/node1.cpp)
 
+
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
@@ -161,14 +182,27 @@ add_executable(node1 src/node1.cpp)
 # add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
+
+
+add_executable(node2 src/node2.cpp)
+
 target_link_libraries(node1
   ${catkin_LIBRARIES}
-  ${cartographer_LIBRARIES}
   ${PCL_LIBRARIES}
+  ${LUA_LIBRARIES}
+  cartographer
 )
 
+set_target_properties(node1 PROPERTIES COMPILE_FLAGS "${TARGET_COMPILE_FLAGS} ${GOOG_CXX_FLAGS}")
 
+target_link_libraries(node2
+  ${catkin_LIBRARIES}
+  ${PCL_LIBRARIES}
+  ${LUA_LIBRARIES}
+  cartographer
+)
 
+set_target_properties(node2 PROPERTIES COMPILE_FLAGS "${TARGET_COMPILE_FLAGS} ${GOOG_CXX_FLAGS}")
 #############
 ## Install ##
 #############

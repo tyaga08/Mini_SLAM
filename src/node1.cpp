@@ -2,11 +2,9 @@
 #include "source_code/point_cloud.cpp"
 
 
-using namespace std;
-
 int main(int argc, char **argv)
 {
-	ros::init(argc, argv, "node_1");
+	ros::init(argc, argv, "node1");
 	ros::NodeHandle nh1;
 	
 	ros::Publisher pc_publisher;

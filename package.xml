@@ -61,6 +61,7 @@
   <depend>nav_msgs</depend>
   <depend>sensor_msgs</depend>
   <exec_depend>message_runtime</exec_depend>
+  <depend>cartographer</depend>
 
 
   <!-- The export tag contains other, unspecified, tags -->
