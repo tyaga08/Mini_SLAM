@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<launch>
+	<node
+		name="cartographer"
+		pkg="cartographer_ros"
+		type="cartographer_node" args="
+			-configuration_directory $(find Mini_SLAM)/config_files
+			-configuration_basename 2DLidar_SLAM.lua"
+		output="screen">
+		
+		<remap from="odom" to="/robot/pose" />
+		<remap from="points2" to="/cloud" />
+	</node>
+
+	<node name="cartographer_occupancy_grid_node" pkg="cartographer_ros"
+		type="cartographer_occupancy_grid_node" args="-resolution 1" />
+</launch>

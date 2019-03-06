@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<launch>
+
+	<node 
+		name="node1" 
+		pkg="Mini_SLAM" 
+		type="node1" 
+		output="screen">
+		<remap from="/cloud" to="/points2" />
+	</node>
+
+</launch>

@@ -156,6 +156,12 @@ vector<pair<int8_t,int8_t> > occupancy_grid::lidar_scan() {
 		temp_cloud.push_back(pair<int8_t,int8_t>(1,-2));
 
 	lidar_point_cloud = temp_cloud;
+
+	cout<<"size of the point cloud:		"<<lidar_point_cloud.size()<<endl;
+	for(uint i=0; i<lidar_point_cloud.size(); i++) {
+		cout<<(int)lidar_point_cloud.at(i).first<<","<<(int)lidar_point_cloud.at(i).second<<endl;
+	}
+
 	return lidar_point_cloud;
 }
 

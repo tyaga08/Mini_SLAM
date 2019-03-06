@@ -127,6 +127,20 @@ catkin_package(
 )
 
 
+if (CATKIN_ENABLE_TESTING)
+  catkin_add_gtest(configuration_files_test "config_files/config_files_test.cc")
+  # catkin_add_gtest uses a plain (i.e. no PUBLIC/PRIVATE/INTERFACE) call to
+  # target_link_libraries. That forces us to do the same.
+  target_include_directories(configuration_files_test SYSTEM PUBLIC ${LUA_INCLUDE_DIR})
+  target_link_libraries(configuration_files_test ${LUA_LIBRARIES})
+  target_include_directories(configuration_files_test SYSTEM PUBLIC ${catkin_INCLUDE_DIRS})
+  target_link_libraries(configuration_files_test ${catkin_LIBRARIES})
+  add_dependencies(configuration_files_test ${catkin_EXPORTED_TARGETS})
+  target_link_libraries(configuration_files_test cartographer)
+  set(TARGET_COMPILE_FLAGS "${TARGET_COMPILE_FLAGS} ${GOOG_CXX_FLAGS}")
+  set_target_properties(configuration_files_test PROPERTIES COMPILE_FLAGS ${TARGET_COMPILE_FLAGS})
+endif()
+
 
 ###########
 ## Build ##

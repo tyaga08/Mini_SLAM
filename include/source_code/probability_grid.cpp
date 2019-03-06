@@ -36,13 +36,13 @@ void probability_grid::cloud_callback(const sensor_msgs::PointCloud2::ConstPtr& 
 
 void probability_grid::assign_grid_probability() {
 	// get the current pose before filling the probability grid
-	for(uint i=0; i<lidar_pc.size(); i++) {
-		cell_idx = Eigen::Array2i(i/10,i%10);
-		// cell_idx = Eigen::Array2i(lidar_pc[i].x, lidar_pc[i].y);
-		cout<<bin_prob_grid->GetProbability(cell_idx)<<endl;
-		bin_prob_grid->SetProbability(cell_idx,1.);
-		cout<<"here"<<endl;
-	}
+	// for(uint i=0; i<lidar_pc.size(); i++) {
+	// 	cell_idx = Eigen::Array2i(i/10,i%10);
+	// 	// cell_idx = Eigen::Array2i(lidar_pc[i].x, lidar_pc[i].y);
+	// 	cout<<bin_prob_grid->GetProbability(cell_idx)<<endl;
+	// 	bin_prob_grid->SetProbability(cell_idx,1.);
+	// 	cout<<"here"<<endl;
+	// }
 
 
 
