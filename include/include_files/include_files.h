@@ -12,8 +12,6 @@
 #include<string>
 #include<vector>
 
-
-#include "cartographer/mapping/2d/probability_grid.h"
 #include "cartographer_ros/node_options.h"
 #include "gtest/gtest.h"
 #include "ros/package.h"

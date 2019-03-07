@@ -3,9 +3,10 @@
 <launch>
 
 	<node 
-		name="node1" 
+		name="write_to_file_server" 
 		pkg="Mini_SLAM" 
-		type="node1" 
+		type="write_to_file_server" 
 		output="screen">
 	</node>
+
 </launch>

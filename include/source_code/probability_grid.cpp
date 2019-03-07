@@ -1,5 +1,7 @@
 #include "include_files/include_files.h"
 
+
+// Future work
 class probability_grid {
 private:
 	pcl::PointCloud<pcl::PointXY> lidar_pc;

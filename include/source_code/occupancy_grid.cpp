@@ -46,7 +46,7 @@ public:
 
 };
 
-
+// This function is used for navigating the robot in the occupancy grid
 pair<int8_t,int8_t> occupancy_grid::navigate_robot(string signal) {
 
 	if(signal=="forward") {
@@ -88,6 +88,8 @@ pair<int8_t,int8_t> occupancy_grid::navigate_robot(string signal) {
 	return bot_curr_pos;
 }
 
+
+// This function is for synthesizing the occupied spot points and inserting it in a vector
 vector<pair<int8_t,int8_t> > occupancy_grid::lidar_scan() {
 
 	int8_t curr_index = occupancy_grid::conv_coordinates_to_arrindex(bot_curr_pos);
@@ -165,10 +167,12 @@ vector<pair<int8_t,int8_t> > occupancy_grid::lidar_scan() {
 	return lidar_point_cloud;
 }
 
+// COnvert the point from point cloud to occupancy grid index
 inline int8_t occupancy_grid::conv_coordinates_to_arrindex(pair<int8_t,int8_t> inp_point) {
 	return (inp_point.first*10 + inp_point.second);
 }
 
+// COnvert the point from occupancy grid index to point cloud
 inline pair<int8_t,int8_t> occupancy_grid::conv_arrindex_to_coordinates(int8_t inp_index) {
 	return pair<int8_t,int8_t> (inp_index/10, inp_index%10);
 }

@@ -7,21 +7,23 @@ int main(int argc, char **argv)
 	ros::init(argc, argv, "node1");
 	ros::NodeHandle nh1;
 	
-	ros::Publisher pc_publisher, odom_publisher;
+	ros::Publisher pc_publisher, grid_publisher;
 	
 	sleep(2);
 
 	cout<<"here"<<endl;
-	point_cloud *p_cloud = new point_cloud(nh1, pc_publisher, odom_publisher);
+	
+	// class for the point cloud processing
+	point_cloud *p_cloud = new point_cloud(nh1, pc_publisher, grid_publisher);
 	ros::Rate loop_rate(1);
 
+	// some condition for changing the directions in the occupancy grid
 	int count=0, check_count = 8;	
-	// ros::Time begin = 
+	
+
 	while(ros::ok()) {
 		count++;
-		p_cloud->publish_data(pc_publisher, odom_publisher, count, check_count);
-
-		cout<<"here finally"<<endl;
+		p_cloud->publish_data(pc_publisher, grid_publisher, count, check_count);
 		ros::spinOnce();
 		loop_rate.sleep();
 	}
